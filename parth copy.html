@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parth Tours & Travels – Premium Cab Services</title>
+
+    <!-- ===== Bootstrap 5 ===== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- ===== Google Fonts ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- ===== Font Awesome 6 ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- ===== Locomotive Scroll (smooth) ===== -->
+    <link href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css" rel="stylesheet" />
+
+    <style>
+        /* ── Reset & Variables ── */
+        :root {
+            --primary: #0A2472;
+            --secondary: #0E6BA8;
+            --accent: #FF6B6B;
+            --gold: #FFD166;
+            --light: #F8F9FA;
+            --dark: #1A1A2E;
+            --gradient: linear-gradient(135deg, #0A2472 0%, #0E6BA8 100%);
+            --gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FFD166 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 5px;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            background: rgba(255, 255, 255, 0.97) !important;
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(10, 36, 114, 0.10);
+            z-index: 9999 !important;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+        .navbar.scrolled {
+            padding: 0.4rem 0;
+            box-shadow: 0 4px 30px rgba(10, 36, 114, 0.18);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+        .logo i {
+            -webkit-text-fill-color: var(--accent);
+            background: none;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            margin: 0 0.5rem;
+            color: var(--dark) !important;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* ── Preloader ── */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .preloader-car-track {
+            position: relative;
+            width: 240px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 2px;
+            overflow: visible;
+        }
+        .preloader-car-track::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -35%;
+            width: 35%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            animation: preloaderTrail 1.2s ease-in-out infinite;
+        }
+        .preloader-car {
+            position: absolute;
+            bottom: 6px;
+            font-size: 1.4rem;
+            color: var(--gold);
+            animation: preloaderCarMove 1.2s ease-in-out infinite;
+        }
+        @keyframes preloaderTrail {
+            0% {
+                left: -35%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        @keyframes preloaderCarMove {
+            0% {
+                transform: translateX(-120px);
+            }
+            100% {
+                transform: translateX(120px);
+            }
+        }
+        .preloader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-top: 28px;
+        }
+        .preloader-percent {
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        /* ── Scroll Progress ── */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: var(--gradient-accent);
+            z-index: 10000;
+            transition: width 0.05s linear;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(10, 36, 114, 0.75), rgba(14, 107, 168, 0.75)),
+                url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-top: 40px;
+        }
+        .hero-title {
+            font-size: 3.8rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .hero-title span {
+            color: var(--gold);
+        }
+
+        .rate-display {
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+        }
+
+        /* ── Search Box ── */
+        .search-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            margin-top: 40px;
+        }
+        .search-input {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            background: #fff;
+            height: 56px;
+            width: 100%;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.12);
+        }
+        .search-button {
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 0 2rem;
+            font-weight: 600;
+            height: 56px;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(10, 36, 114, 0.25);
+            color: #fff;
+        }
+
+        /* ── Cab Cards ── */
+        .cab-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        .cab-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        .cab-image {
+            height: 220px;
+            width: 100%;
+            background: linear-gradient(45deg, #0A2472, #0E6BA8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .cab-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .cab-image .icon-fallback {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+        .cab-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient-accent);
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        .cab-feature {
+            display: inline-block;
+            background: rgba(10, 36, 114, 0.08);
+            color: var(--primary);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 3px;
+        }
+
+        /* ── Driver Cards ── */
+        .driver-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .driver-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .driver-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10);
+        }
+
+        /* ── Service Cards ── */
+        .service-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: #fff;
+            font-size: 2rem;
+        }
+
+        /* ── Stats ── */
+        .stat-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 100%;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FFD166, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        /* ── Destination Cards ── */
+        .destination-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .destination-image {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* ── CTA Button ── */
+        .cta-button {
+            background: var(--gradient);
+            color: #fff;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(10, 36, 114, 0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(10, 36, 114, 0.35);
+            color: #fff;
+        }
+
+        /* ── Floating WhatsApp ── */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.30);
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            text-decoration: none;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.08);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+            padding: 70px 0 40px;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        /* ── Section underline ── */
+        .section-underline {
+            width: 70px;
+            height: 4px;
+            background: var(--gradient-accent);
+            margin: 10px auto 20px;
+            border-radius: 3px;
+        }
+
+        /* ── Utilities ── */
+        .row.equal-height>[class*='col-'] {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .testimonial-card,
+        .message-card,
+        .contact-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            height: 100%;
+        }
+
+        .message-image img,
+        .contact-map iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            min-height: 320px;
+            border: 0;
+        }
+
+        .message-image {
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 16px 40px rgba(10, 36, 114, 0.15);
+        }
+
+        .pill {
+            display: inline-block;
+            background: rgba(10, 36, 114, 0.08);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .rating-badge {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .contact-card ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 70px;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .search-box {
+                padding: 1.5rem;
+                margin-top: 20px;
+            }
+            .cab-image {
+                height: 180px;
+            }
+        }
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .search-button {
+                margin-top: 10px;
+            }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 1.6rem;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* ── Reveal ── */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: none;
+        }
+        [data-reveal].revealed {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* tilt-glare */
+        .cab-card,
+        .destination-card,
+        .driver-card,
+        .service-card,
+        .stat-card {
+            will-change: transform;
+            position: relative;
+            overflow: hidden;
+        }
+        .tilt-glare {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: inherit;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .cab-card:hover .tilt-glare,
+        .destination-card:hover .tilt-glare,
+        .driver-card:hover .tilt-glare,
+        .service-card:hover .tilt-glare,
+        .stat-card:hover .tilt-glare {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    PRELOADER
+    ============================================================ -->
+    <div id="preloader">
+        <div class="preloader-car-track">
+            <i class="fas fa-car-side preloader-car"></i>
+        </div>
+        <div class="preloader-text">Parth Tours &amp; Travels</div>
+        <div class="preloader-percent" id="preloader-percent">Loading 0%</div>
+    </div>
+
+    <!-- ============================================================
+    SCROLL PROGRESS BAR
+    ============================================================ -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand logo" href="#home">
+                <i class="fas fa-car me-2"></i>Parth Tours & Travels
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cabs">Our Cabs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#destinations">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#drivers">Our Drivers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#admin-message">Admin Message</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn cta-button" href="tel:+917673810238">
+                            <i class="fas fa-phone me-2"></i> Call Now
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    MAIN (Locomotive container)
+    ============================================================ -->
+    <div id="main" data-scroll-container>
+
+        <!-- ──── HERO ──── -->
+        <section class="hero" id="home" data-scroll-section>
+            <canvas id="hero-canvas"></canvas>
+            <div class="container h-100 d-flex flex-column justify-content-center">
+                <div class="row justify-content-center text-white hero-content">
+                    <div class="col-lg-10 text-center" data-reveal>
+                        <h6 class="text-uppercase mb-3" style="color: var(--gold); letter-spacing: 3px;">
+                            <i class="fas fa-shield-alt me-2"></i>Professional Cab Services
+                        </h6>
+                        <h1 class="hero-title">
+                            Premium Desire &amp; Ertiga<br />
+                            <span>Cab Services</span>
+                        </h1>
+                        <p class="lead mt-4 mb-4">
+                            Since 2025, safe &amp; comfortable rides with professional drivers.
+                            <span class="rate-display ms-2">Ertiga ₹22/km</span>
+                            <span class="rate-display ms-2">Desire ₹18/km</span>
+                            <span class="rate-display ms-2">Traveler ₹60/km</span>
+                            <span class="rate-display ms-2">Electric ₹45/km</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="row justify-content-center" data-reveal data-delay="200">
+                    <div class="col-lg-10">
+                        <div class="search-box">
+                            <h4 class="text-center mb-4" style="color: var(--primary);">
+                                <i class="fas fa-car me-2"></i>Instant Cab Booking
+                            </h4>
+                            <div class="row g-3 align-items-end">
+                                <div class="col-lg-3 col-md-6">
+                                    <label class="text-muted small mb-1">Pickup Location</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-0 px-0 pe-2">
+                                            <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i>
+                                        </span>
+                                        <input type="text" class="form-control search-input" id="pickupInput" placeholder="Enter pickup" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <label class="text-muted small mb-1">Destination</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-0 px-0 pe-2">
+                                            <i class="fas fa-flag" style="color: var(--accent);"></i>
+                                        </span>
+                                        <input type="text" class="form-control search-input" id="destInput" placeholder="Enter destination" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-6">
+                                    <label class="text-muted small mb-1">Cab Type</label>
+                                    <select class="form-control search-input" id="cabTypeSelect">
+                                        <option value="">Select Cab</option>
+                                        <option value="Ertiga">Ertiga (₹22/km)</option>
+                                        <option value="Desire">Desire (₹18/km)</option>
+                                        <option value="Traveler">Traveler (₹60/km)</option>
+                                        <option value="Electric Car">Electric Car (₹45/km)</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-6">
+                                    <label class="text-muted small mb-1">Pickup Date &amp; Time</label>
+                                    <input type="datetime-local" class="form-control search-input" id="dateTimeInput" />
+                                </div>
+                                <div class="col-lg-2 col-md-12">
+                                    <button class="search-button" id="bookNowBtn">
+                                        <i class="fas fa-car me-2"></i> Book Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── STATS ──── -->
+        <section class="py-5 bg-white" data-scroll-section>
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-3 col-6" data-reveal>
+                        <div class="stat-card">
+                            <div class="counter" data-count="150">0</div>
+                            <p class="mt-2 text-muted">Cabs in Fleet</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6" data-reveal data-delay="100">
+                        <div class="stat-card">
+                            <div class="counter" data-count="30">0</div>
+                            <p class="mt-2 text-muted">Destinations</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6" data-reveal data-delay="200">
+                        <div class="stat-card">
+                            <div class="counter" data-count="500">0</div>
+                            <p class="mt-2 text-muted">Happy Customers</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6" data-reveal data-delay="300">
+                        <div class="stat-card">
+                            <div class="counter" data-count="1.2">0</div>
+                            <p class="mt-2 text-muted">Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── OUR CABS ──── -->
+        <section id="cabs" class="py-5" data-scroll-section>
+            <div class="container">
+                <div class="text-center mb-5" data-reveal>
+                    <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Our Fleet</h6>
+                    <h2 class="display-5 fw-bold mb-2">Premium Cab Services</h2>
+                    <div class="section-underline"></div>
+                    <p class="text-muted">Well-maintained, clean &amp; comfortable vehicles with professional drivers</p>
+                </div>
+
+                <div class="row equal-height g-4">
+                    <!-- Ertiga -->
+                    <div class="col-lg-3 col-md-6" data-reveal>
+                        <div class="cab-card">
+                            <div class="cab-badge">MOST POPULAR</div>
+                            <div class="cab-image">
+                                <img src="https://imgd.aeplcdn.com/1056x594/n/cw/ec/130591/ertiga-exterior-right-front-three-quarter-3.jpeg?isig=0&q=80"
+                                alt="Maruti Ertiga" onerror="this.style.display='none'" />
+                                <div class="icon-fallback"><i class="fas fa-van-shuttle"></i></div>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="fw-bold">Maruti Ertiga</h5>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-users me-1" style="color: var(--accent);"></i>
+                                            7 Seater | Family Comfort
+                                        </p>
+                                    </div>
+                                    <div class="text-end">
+                                        <h4 class="fw-bold" style="color: var(--primary);">₹22/km</h4>
+                                        <small class="text-muted">Special Rate</small>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="cab-feature"><i class="fas fa-snowflake me-1"></i>AC</span>
+                                    <span class="cab-feature"><i class="fas fa-suitcase me-1"></i>7 Bags</span>
+                                    <span class="cab-feature"><i class="fas fa-wifi me-1"></i>WiFi*</span>
+                                    <span class="cab-feature"><i class="fas fa-star me-1"></i>Premium</span>
+                                </div>
+                                <p class="text-muted mb-4 flex-grow-1">Perfect for family trips, corporate travel, and group outings. Spacious &amp; comfortable.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="fw-bold" style="color: var(--primary);">
+                                        <i class="fas fa-gas-pump me-1"></i> 20-22 kmpl
+                                    </div>
+                                    <button class="btn cta-button btn-sm" onclick="bookSpecificCab('Ertiga', 22)">
+                                        Book Ertiga <i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desire -->
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="100">
+                        <div class="cab-card">
+                            <div class="cab-badge">BEST VALUE</div>
+                            <div class="cab-image">
+                                <img src="https://imgd.aeplcdn.com/1056x594/n/cw/ec/130591/ertiga-exterior-right-front-three-quarter-3.jpeg?isig=0&q=80"
+                                alt="Maruti Desire" onerror="this.style.display='none'" />
+                                <div class="icon-fallback"><i class="fas fa-car"></i></div>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="fw-bold">Maruti Desire</h5>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-users me-1" style="color: var(--accent);"></i>
+                                            5 Seater | Economy Plus
+                                        </p>
+                                    </div>
+                                    <div class="text-end">
+                                        <h4 class="fw-bold" style="color: var(--primary);">₹18/km</h4>
+                                        <small class="text-muted">Special Rate</small>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="cab-feature"><i class="fas fa-snowflake me-1"></i>AC</span>
+                                    <span class="cab-feature"><i class="fas fa-suitcase me-1"></i>4 Bags</span>
+                                    <span class="cab-feature"><i class="fas fa-wifi me-1"></i>WiFi</span>
+                                    <span class="cab-feature"><i class="fas fa-bolt me-1"></i>Economy</span>
+                                </div>
+                                <p class="text-muted mb-4 flex-grow-1">Great fuel efficiency with comfortable seating. Perfect for business &amp; small family trips.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="fw-bold" style="color: var(--primary);">
+                                        <i class="fas fa-gas-pump me-1"></i> 22-24 kmpl
+                                    </div>
+                                    <button class="btn cta-button btn-sm" onclick="bookSpecificCab('Desire', 18)">
+                                        Book Desire <i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Cabs -->
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="200">
+                        <div class="cab-card">
+                            <div class="cab-image">
+                                <img src="https://imgd.aeplcdn.com/1056x594/n/cw/ec/130591/ertiga-exterior-right-front-three-quarter-3.jpeg?isig=0&q=80"
+                                alt="Other Cabs" onerror="this.style.display='none'" />
+                                <div class="icon-fallback"><i class="fas fa-car"></i></div>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="fw-bold">Other Cabs Available</h5>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-car me-1" style="color: var(--accent);"></i>
+                                            Complete Fleet
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="mb-4 flex-grow-1">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Scorpio Classic(Black) (7-seater)</span>
+                                        <span class="fw-bold">₹30/km</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Sedan (4-seater)</span>
+                                        <span class="fw-bold">₹18/km</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Innova (7-seater)</span>
+                                        <span class="fw-bold">₹45/km</span>
+                                    </div>
+                                </div>
+                                <button class="btn cta-button w-100" onclick="bookCab()">
+                                    <i class="fas fa-car me-2"></i> View All Cabs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Traveler -->
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="300">
+                        <div class="cab-card">
+                            <div class="cab-badge">TRAVELER</div>
+                            <div class="cab-image">
+                                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                                alt="Traveler cab" onerror="this.style.display='none'" />
+                                <div class="icon-fallback"><i class="fas fa-route"></i></div>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="fw-bold">Traveler Cab</h5>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-users me-1" style="color: var(--accent);"></i>
+                                            4 Seater | City Travel
+                                        </p>
+                                    </div>
+                                    <div class="text-end">
+                                        <h4 class="fw-bold" style="color: var(--primary);">₹60/km</h4>
+                                        <small class="text-muted">Special Rate</small>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="cab-feature"><i class="fas fa-snowflake me-1"></i>AC</span>
+                                    <span class="cab-feature"><i class="fas fa-shield-alt me-1"></i>Safe</span>
+                                    <span class="cab-feature"><i class="fas fa-clock me-1"></i>On Time</span>
+                                </div>
+                                <p class="text-muted mb-4 flex-grow-1">Perfect for quick intercity rides, airport pickups, and daily business travel.</p>
+                                <button class="btn cta-button w-100" onclick="bookSpecificCab('Traveler', 60)">
+                                    Book Traveler <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Electric Car -->
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="400">
+                        <div class="cab-card">
+                            <div class="cab-badge">ELECTRIC</div>
+                            <div class="cab-image">
+                                <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                                alt="Electric car" onerror="this.style.display='none'" />
+                                <div class="icon-fallback"><i class="fas fa-bolt"></i></div>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="fw-bold">Electric Car</h5>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-bolt me-1" style="color: var(--accent);"></i>
+                                            Eco Friendly | Quiet Ride
+                                        </p>
+                                    </div>
+                                    <div class="text-end">
+                                        <h4 class="fw-bold" style="color: var(--primary);">₹45/km</h4>
+                                        <small class="text-muted">Available</small>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="cab-feature"><i class="fas fa-leaf me-1"></i>Eco</span>
+                                    <span class="cab-feature"><i class="fas fa-volume-mute me-1"></i>Silent</span>
+                                    <span class="cab-feature"><i class="fas fa-charging-station me-1"></i>Smart</span>
+                                </div>
+                                <p class="text-muted mb-4 flex-grow-1">Ideal for short city rides and premium eco-conscious travel.</p>
+                                <button class="btn cta-button w-100" onclick="bookSpecificCab('Electric Car', 45)">
+                                    Book Electric <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── DESTINATIONS ──── -->
+        <section id="destinations" class="py-5 bg-light" data-scroll-section>
+            <div class="container">
+                <div class="text-center mb-5" data-reveal>
+                    <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Popular Destinations</h6>
+                    <h2 class="display-5 fw-bold mb-2">Top Routes We Serve</h2>
+                    <div class="section-underline"></div>
+                    <p class="text-muted">We provide cab services to all major tourist and business destinations</p>
+                </div>
+
+                <div class="row equal-height g-4">
+                    <!-- Manali -->
+                    <div class="col-lg-3 col-md-6" data-reveal>
+                        <div class="destination-card">
+                            <div class="position-relative">
+                                <img src="https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                class="destination-image" alt="Manali" onerror="this.src='https://via.placeholder.com/800x400/0A2472/FFFFFF?text=Manali'" />
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <h5 class="fw-bold mb-3">🚗 Delhi to Manali</h5>
+                                <p class="text-muted mb-3 flex-grow-1">Scenic hill station with snow adventures</p>
+                                <div class="d-flex justify-content-between"><span class="text-muted">Distance:</span><span class="fw-bold">540 km</span></div>
+                                <div class="d-flex justify-content-between mt-1"><span class="text-muted">Travel Time:</span><span class="fw-bold">12-14 hours</span></div>
+                                <button class="btn cta-button w-100 mt-3" onclick="bookDestination('Delhi to Manali', 12000)">Book This Trip</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Agra -->
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="100">
+                        <div class="destination-card">
+                            <div class="position-relative">
+                                <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                class="destination-image" alt="Agra" onerror="this.src='https://via.placeholder.com/800x400/0E6BA8/FFFFFF?text=Agra'" />
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <h5 class="fw-bold mb-3">🕌 Delhi to Agra</h5>
+                                <p class="text-muted mb-3 flex-grow-1">Visit Taj Mahal, Agra Fort</p>
+                                <div class="d-flex justify-content-between"><span class="text-muted">Distance:</span><span class="fw-bold">240 km</span></div>
+                                <div class="d-flex justify-content-between mt-1"><span class="text-muted">Travel Time:</span><span class="fw-bold">4-5 hours</span></div>
+                                <button class="btn cta-button w-100 mt-3" onclick="bookDestination('Delhi to Agra', 4500)">Book This Trip</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Shimla -->
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="200">
+                        <div class="destination-card">
+                            <div class="position-relative">
+                                <img src="https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                class="destination-image" alt="Shimla" onerror="this.src='https://via.placeholder.com/800x400/FF6B6B/FFFFFF?text=Shimla'" />
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <h5 class="fw-bold mb-3">🏔️ Delhi to Shimla</h5>
+                                <p class="text-muted mb-3 flex-grow-1">Queen of Hills, Toy Train</p>
+                                <div class="d-flex justify-content-between"><span class="text-muted">Distance:</span><span class="fw-bold">350 km</span></div>
+                                <div class="d-flex justify-content-between mt-1"><span class="text-muted">Travel Time:</span><span class="fw-bold">8-9 hours</span></div>
+                                <button class="btn cta-button w-100 mt-3" onclick="bookDestination('Delhi to Shimla', 8500)">Book This Trip</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Jaipur -->
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="300">
+                        <div class="destination-card">
+                            <div class="position-relative">
+                                <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                class="destination-image" alt="Jaipur" onerror="this.src='https://via.placeholder.com/800x400/FFD166/000000?text=Jaipur'" />
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <h5 class="fw-bold mb-3">🛕 Delhi to Jaipur</h5>
+                                <p class="text-muted mb-3 flex-grow-1">Pink City, Amer Fort, Hawa Mahal</p>
+                                <div class="d-flex justify-content-between"><span class="text-muted">Distance:</span><span class="fw-bold">280 km</span></div>
+                                <div class="d-flex justify-content-between mt-1"><span class="text-muted">Travel Time:</span><span class="fw-bold">5-6 hours</span></div>
+                                <button class="btn cta-button w-100 mt-3" onclick="bookDestination('Delhi to Jaipur', 5000)">Book This Trip</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── DRIVERS ──── -->
+        <section id="drivers" class="py-5" data-scroll-section>
+            <div class="container">
+                <div class="text-center mb-5" data-reveal>
+                    <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Our Team</h6>
+                    <h2 class="display-5 fw-bold mb-2">Meet Our Professional Drivers</h2>
+                    <div class="section-underline"></div>
+                    <p class="text-muted">Experienced, licensed, and trained drivers for your safe journey</p>
+                </div>
+
+                <div class="row equal-height g-4">
+                    <div class="col-lg-4 col-md-6" data-reveal>
+                        <div class="driver-card">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            class="driver-image" alt="Driver" onerror="this.src='https://via.placeholder.com/400x400/0A2472/FFFFFF?text=Driver'" />
+                            <h5 class="fw-bold mb-2">Rajesh Kumar</h5>
+                            <p class="text-muted mb-3">Senior Corporate Driver</p>
+                            <div class="mb-3">
+                                <span class="cab-feature"><i class="fas fa-award me-1"></i>15 Years Exp</span>
+                                <span class="cab-feature"><i class="fas fa-map me-1"></i>Expert Navigator</span>
+                            </div>
+                            <p class="text-muted flex-grow-1">Specializes in corporate travel, airport transfers, and business meetings.</p>
+                            <div class="rating mt-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <span class="ms-2">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6" data-reveal data-delay="100">
+                        <div class="driver-card">
+                            <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            class="driver-image" alt="Driver" onerror="this.src='https://via.placeholder.com/400x400/0E6BA8/FFFFFF?text=Driver'" />
+                            <h5 class="fw-bold mb-2">Mohan Singh</h5>
+                            <p class="text-muted mb-3">Hill Station Specialist</p>
+                            <div class="mb-3">
+                                <span class="cab-feature"><i class="fas fa-mountain me-1"></i>Hill Expert</span>
+                                <span class="cab-feature"><i class="fas fa-shield-alt me-1"></i>Safe Driver</span>
+                            </div>
+                            <p class="text-muted flex-grow-1">Expert in driving through hilly terrains of Manali, Shimla, and Mussoorie.</p>
+                            <div class="rating mt-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star-half-alt text-warning"></i>
+                                <span class="ms-2">4.8</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6" data-reveal data-delay="200">
+                        <div class="driver-card">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            class="driver-image" alt="Driver" onerror="this.src='https://via.placeholder.com/400x400/FF6B6B/FFFFFF?text=Driver'" />
+                            <h5 class="fw-bold mb-2">Vikram Sharma</h5>
+                            <p class="text-muted mb-3">Luxury Cab Driver</p>
+                            <div class="mb-3">
+                                <span class="cab-feature"><i class="fas fa-gem me-1"></i>Luxury Service</span>
+                                <span class="cab-feature"><i class="fas fa-headset me-1"></i>Multilingual</span>
+                            </div>
+                            <p class="text-muted flex-grow-1">Specializes in luxury travel, wedding services, and VIP transfers.</p>
+                            <div class="rating mt-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <span class="ms-2">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── TESTIMONIALS ──── -->
+        <section id="testimonials" class="py-5 bg-light" data-scroll-section>
+            <div class="container">
+                <div class="text-center mb-5" data-reveal>
+                    <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Testimonials</h6>
+                    <h2 class="display-5 fw-bold mb-2">20+ Happy Travelers Trust Us</h2>
+                    <div class="section-underline"></div>
+                    <p class="text-muted">Trusted by families, business travelers, and weekend explorers for safe and smooth rides.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4" data-reveal>
+                        <div class="testimonial-card">
+                            <div class="pill"><i class="fas fa-star me-1"></i> 4.9 Rated</div>
+                            <p class="text-muted">“Excellent service, punctual drivers, and very neat cabs. Booking was smooth from start to finish.”</p>
+                            <div class="fw-bold mt-3">Aman Sharma</div>
+                            <div class="small text-muted">Delhi to Jaipur trip</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-reveal data-delay="100">
+                        <div class="testimonial-card">
+                            <div class="pill"><i class="fas fa-users me-1"></i> 20+ Reviews</div>
+                            <p class="text-muted">“The team made our family journey very comfortable. The Ertiga was clean and the driver was polite.”</p>
+                            <div class="fw-bold mt-3">Neha Verma</div>
+                            <div class="small text-muted">Family vacation traveler</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-reveal data-delay="200">
+                        <div class="testimonial-card">
+                            <div class="pill"><i class="fas fa-shield-alt me-1"></i> Safe & Reliable</div>
+                            <p class="text-muted">“Very professional drivers and clear pricing. I used their service twice this month and would recommend them.”</p>
+                            <div class="fw-bold mt-3">Rajat Malhotra</div>
+                            <div class="small text-muted">Corporate traveler</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── ADMIN MESSAGE ──── -->
+        <section id="admin-message" class="py-5" data-scroll-section>
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6" data-reveal>
+                        <div class="message-card">
+                            <div class="pill">Admin Message</div>
+                            <h2 class="fw-bold mb-3">A personal note from our admin team</h2>
+                            <p class="text-muted mb-3">We believe every journey should feel safe, comfortable, and transparent. From airport transfers to weekend escapes, our team is committed to making your ride smooth from pickup to drop.</p>
+                            <p class="text-muted">Our mission is simple: friendly service, fair pricing, and dependable travel at every mile.</p>
+                            <div class="mt-4">
+                                <span class="rating-badge me-3"><i class="fas fa-check-circle me-1"></i>Verified Drivers</span>
+                                <span class="rating-badge"><i class="fas fa-check-circle me-1"></i>24/7 Support</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-reveal data-delay="100">
+                        <div class="message-image">
+                            <img src="dz.jpeg" alt="Admin team" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── CO-FOUNDER MESSAGE ──── -->
+        <section class="py-5 bg-white" data-scroll-section>
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6 order-lg-2" data-reveal>
+                        <div class="message-card">
+                            <div class="pill">Co-Founder Message</div>
+                            <h2 class="fw-bold mb-3">We are building journeys with trust</h2>
+                            <p class="text-muted mb-3">As co-founders, we focus on making every ride a memorable one. Our fleet continues to grow with dependable vehicles, premium comfort, and a customer-first approach.</p>
+                            <p class="text-muted">Whether you need a family cab, a corporate transfer, or an eco-friendly ride, we are ready to serve you with care.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1" data-reveal data-delay="100">
+                        <div class="message-image">
+                            <img src="ear.jpeg" alt="Co-founder" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── CONTACT US ──── -->
+        <section id="contact" class="py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);" data-scroll-section>
+            <div class="container">
+                <div class="text-center mb-5" data-reveal>
+                    <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Contact Us</h6>
+                    <h2 class="display-5 fw-bold mb-2">Reach Our Team Anytime</h2>
+                    <div class="section-underline"></div>
+                    <p class="text-muted">Visit us, call us, or book online. We also offer an electric car option for eco-friendly city travel.</p>
+                </div>
+
+                <div class="row g-4 align-items-stretch">
+                    <div class="col-lg-6" data-reveal>
+                        <div class="contact-card">
+                            <h4 class="fw-bold mb-3">Get in touch</h4>
+                            <ul class="list-unstyled text-muted">
+                                <li><i class="fas fa-map-marker-alt me-2" style="color: var(--accent);"></i>123 Main Street, Delhi, India</li>
+                                <li><i class="fas fa-phone me-2" style="color: var(--accent);"></i>+91 7673810238</li>
+                                <li><i class="fas fa-phone me-2" style="color: var(--accent);"></i>+91 7561999167</li>
+                                <li><i class="fas fa-envelope me-2" style="color: var(--accent);"></i>bookings@parthtours.com</li>
+                            </ul>
+                            <div class="mt-4">
+                                <span class="pill"><i class="fas fa-bolt me-1"></i> Electric Car Available</span>
+                                <span class="pill"><i class="fas fa-car me-1"></i> Traveler Cab ₹60/km</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-reveal data-delay="100">
+                        <div class="contact-card contact-map">
+                            <iframe src="https://www.google.com/maps?q=Delhi%20India&z=12&output=embed" title="Map location"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── WHY CHOOSE US ──── -->
+        <section class="py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);" data-scroll-section>
+            <div class="container">
+                <div class="text-center mb-5" data-reveal>
+                    <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Why Choose Us</h6>
+                    <h2 class="display-5 fw-bold mb-2">The Parth Tours Advantage</h2>
+                    <div class="section-underline"></div>
+                    <p class="text-muted">We go the extra mile to ensure your journey is safe, comfortable, and memorable</p>
+                </div>
+
+                <div class="row equal-height g-4">
+                    <div class="col-lg-3 col-md-6" data-reveal>
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-user-tie"></i></div>
+                            <h5 class="fw-bold mb-3">Professional Drivers</h5>
+                            <p class="text-muted">Licensed, trained, and experienced drivers with excellent manners</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="100">
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-car"></i></div>
+                            <h5 class="fw-bold mb-3">Well-Maintained Cabs</h5>
+                            <p class="text-muted">Regularly serviced Ertiga &amp; Desire cabs with AC and cleanliness</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="200">
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-rupee-sign"></i></div>
+                            <h5 class="fw-bold mb-3">Competitive Rates</h5>
+                            <p class="text-muted">Ertiga ₹22/km &amp; Desire ₹18/km with no hidden charges</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-reveal data-delay="300">
+                        <div class="service-card">
+                            <div class="service-icon"><i class="fas fa-headset"></i></div>
+                            <h5 class="fw-bold mb-3">24/7 Support</h5>
+                            <p class="text-muted">Round-the-clock customer support for bookings and emergencies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── FOOTER ──── -->
+        <footer class="footer text-white" data-scroll-section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <h3 class="logo mb-3">Parth Tours</h3>
+                        <p class="mb-4 text-white-50">Since 2025, providing reliable cab services with Ertiga &amp; Desire cabs. Professional drivers, competitive rates.</p>
+                        <div class="d-flex">
+                            <a href="#" class="text-white me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                            <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                            <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                            <a href="#" class="text-white"><i class="fab fa-youtube fa-lg"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h5 class="mb-4">Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#home" class="text-white-50 text-decoration-none">Home</a></li>
+                            <li class="mb-2"><a href="#cabs" class="text-white-50 text-decoration-none">Our Cabs</a></li>
+                            <li class="mb-2"><a href="#destinations" class="text-white-50 text-decoration-none">Destinations</a></li>
+                            <li class="mb-2"><a href="#drivers" class="text-white-50 text-decoration-none">Our Drivers</a></li>
+                            <li class="mb-2"><a href="#testimonials" class="text-white-50 text-decoration-none">Testimonials</a></li>
+                            <li class="mb-2"><a href="#contact" class="text-white-50 text-decoration-none">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h5 class="mb-4">Contact Info</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-3"><i class="fas fa-map-marker-alt me-2" style="color: var(--gold);"></i><span class="text-white-50">123 Main Street, Delhi, India</span></li>
+                            <li class="mb-3"><i class="fas fa-phone me-2" style="color: var(--gold);"></i><span class="text-white-50">+91 7673810238</span></li>
+                            <li class="mb-3"><i class="fas fa-phone me-2" style="color: var(--gold);"></i><span class="text-white-50">+91 7561999167</span></li>
+                            <li><i class="fas fa-envelope me-2" style="color: var(--gold);"></i><span class="text-white-50">bookings@parthtours.com</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 mb-4">
+                        <h5 class="mb-4">Cab Rates</h5>
+                        <ul class="list-unstyled text-white-50">
+                            <li class="mb-2">Ertiga (7-seater): ₹22/km</li>
+                            <li class="mb-2">Desire (5-seater): ₹18/km</li>
+                            <li class="mb-2">Scorpio (7-seater): ₹30/km</li>
+                            
+                            <li class="mb-2">Innova: ₹45/km</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="bg-white-50 my-5" />
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <p class="text-white-50">&copy; 2025 Parth Tours &amp; Travels. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p class="text-white-50">Your Journey, Our Responsibility | Ertiga ₹22/km | Desire ₹18/km</p>
+                        <p class="text-white-50 small">Design By PrimewebHelix</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /#main -->
+
+    <!-- ============================================================
+    FLOATING WHATSAPP
+    ============================================================ -->
+    <a href="https://wa.me/919876543210?text=Hi,%20I%20want%20to%20book%20a%20cab%20from%20Parth%20Tours%20%26%20Travels"
+    class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ============================================================
+SCRIPTS
+============================================================ -->
+<!-- Bootstrap 5 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- Three.js (hero canvas) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+</script>
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+</script>
+
+<!-- Locomotive Scroll -->
+<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js">
+</script>
+
+<!-- ============================================================
+MAIN APPLICATION
+============================================================ -->
+<script>
+    (function() {
+        'use strict';
+
+        // ──────────────────────────────────────────────
+        // 1. PRELOADER
+        // ──────────────────────────────────────────────
+        const preloader = document.getElementById('preloader');
+        const percentEl = document.getElementById('preloader-percent');
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.floor(Math.random() * 12) + 6;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+                percentEl.textContent = 'Loading 100%';
+                setTimeout(() => {
+                    preloader.classList.add('loaded');
+                    initApp();
+                }, 280);
+            } else {
+                percentEl.textContent = 'Loading ' + progress + '%';
+            }
+        }, 140);
+
+        // ──────────────────────────────────────────────
+        // 2. APP INIT (runs after preloader)
+        // ──────────────────────────────────────────────
+        function initApp() {
+
+            // ---- 2a. GSAP + ScrollTrigger ----
+            gsap.registerPlugin(ScrollTrigger);
+
+            // ---- 2b. Locomotive Scroll ----
+            const mainEl = document.querySelector('#main');
+            let loco = null;
+            try {
+                loco = new LocomotiveScroll({
+                    el: mainEl,
+                    smooth: true,
+                    lerp: 0.09,
+                    multiplier: 1,
+                    smartphone: { smooth: false },
+                    tablet: { smooth: false }
+                });
+
+                loco.on('scroll', (args) => {
+                    ScrollTrigger.update();
+                    const pct = (args.scroll.y / (args.limit.y || 1)) * 100;
+                    const bar = document.getElementById('scrollProgress');
+                    if (bar) bar.style.width = Math.min(pct, 100) + '%';
+                    const nav = document.querySelector('.navbar');
+                    if (args.scroll.y > 50) {
+                        nav.classList.add('scrolled');
+                    } else {
+                        nav.classList.remove('scrolled');
+                    }
+                });
+
+                ScrollTrigger.scrollerProxy('#main', {
+                    scrollTop(value) {
+                        if (arguments.length) {
+                            loco.scrollTo(value, { duration: 0, disableLerp: true });
+                        }
+                        return loco.scroll.instance.scroll.y;
+                    },
+                    getBoundingClientRect() {
+                        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+                    },
+                    pinType: mainEl.style.transform ? 'transform' : 'fixed'
+                });
+
+                ScrollTrigger.addEventListener('refresh', () => loco.update());
+                ScrollTrigger.refresh();
+
+            } catch (e) {
+                console.warn('Locomotive Scroll not available, using fallback.', e);
+            }
+
+            // ---- 2c. Smooth anchor links ----
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#' || href.length < 2) return;
+                    const target = document.querySelector(href);
+                    if (!target) return;
+                    e.preventDefault();
+                    const collapse = document.querySelector('.navbar-collapse');
+                    if (collapse && collapse.classList.contains('show')) {
+                        collapse.classList.remove('show');
+                    }
+                    if (loco) {
+                        loco.scrollTo(target, { offset: -80, duration: 1000 });
+                    } else {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // ---- 2d. Reveal on scroll ----
+            document.querySelectorAll('[data-reveal]').forEach(el => {
+                const delay = parseInt(el.getAttribute('data-delay')) || 0;
+                gsap.set(el, { autoAlpha: 0, y: 50 });
+                ScrollTrigger.create({
+                    trigger: el,
+                    scroller: '#main',
+                    start: 'top 88%',
+                    onEnter: () => {
+                        gsap.to(el, {
+                            autoAlpha: 1,
+                            y: 0,
+                            duration: 0.9,
+                            delay: delay / 1000,
+                            ease: 'power3.out'
+                        });
+                    }
+                });
+            });
+
+            // ---- 2e. Counters ----
+            document.querySelectorAll('.counter').forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-count'));
+                if (isNaN(target)) return;
+                const obj = { val: 0 };
+                ScrollTrigger.create({
+                    trigger: counter,
+                    scroller: '#main',
+                    start: 'top 90%',
+                    once: true,
+                    onEnter: () => {
+                        gsap.to(obj, {
+                            val: target,
+                            duration: 1.8,
+                            ease: 'power2.out',
+                            onUpdate: () => {
+                                counter.innerText = (target % 1 !== 0) ? obj.val.toFixed(1) : Math
+                                    .ceil(obj.val);
+                            }
+                        });
+                    }
+                });
+            });
+
+            // ---- 2f. Section underlines ----
+            document.querySelectorAll('h2.display-5').forEach(h => {
+                if (!h.nextElementSibling || !h.nextElementSibling.classList.contains('section-underline')) {
+                    const u = document.createElement('div');
+                    u.className = 'section-underline';
+                    h.after(u);
+                }
+            });
+
+            // ---- 2g. Tilt + glare ----
+            const tiltSel = '.cab-card, .destination-card, .driver-card, .service-card, .stat-card';
+            document.querySelectorAll(tiltSel).forEach(card => {
+                const glare = document.createElement('div');
+                glare.className = 'tilt-glare';
+                card.appendChild(glare);
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const rotX = ((y / rect.height) - 0.5) * -8;
+                    const rotY = ((x / rect.width) - 0.5) * 8;
+                    gsap.to(card, { rotateX: rotX, rotateY: rotY, transformPerspective: 900,
+                        duration: 0.4, ease: 'power2.out' });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'power3.out' });
+                });
+            });
+
+            // ---- 2h. Magnetic buttons ----
+            document.querySelectorAll('.cta-button, .search-button').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: 'power2.out' });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+                });
+            });
+
+            // ---- 2i. WhatsApp pop-in ----
+            gsap.from('.whatsapp-float', { scale: 0, duration: 0.8, delay: 1.2, ease: 'back.out(2)' });
+
+            // ---- 2j. Hero Three.js with Swift Dzire ----
+            initHeroThree();
+
+            // ---- 2k. Booking logic ----
+            document.getElementById('bookNowBtn').addEventListener('click', bookCab);
+        }
+
+        // ──────────────────────────────────────────────
+        // 3. THREE.JS HERO – SWIFT DZIRE
+        // ──────────────────────────────────────────────
+        function initHeroThree() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas || typeof THREE === 'undefined') {
+                console.warn('Three.js not loaded or canvas missing.');
+                return;
+            }
+
+            const hero = document.querySelector('.hero');
+            let w = hero.clientWidth;
+            let h = hero.clientHeight;
+
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x0a2472, 8, 34);
+
+            const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
+            camera.position.set(0, 2.8, 10);
+            camera.lookAt(0, 0.5, 0);
+
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(w, h);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Lights
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            const moon = new THREE.DirectionalLight(0xbfd9ff, 0.8);
+            moon.position.set(-5, 8, 5);
+            scene.add(moon);
+            const fill = new THREE.DirectionalLight(0xffeedd, 0.4);
+            fill.position.set(4, 3, -4);
+            scene.add(fill);
+
+            // Road
+            const road = new THREE.Mesh(
+                new THREE.PlaneGeometry(14, 60),
+                new THREE.MeshStandardMaterial({ color: 0x14224d, roughness: 0.9 })
+            );
+            road.rotation.x = -Math.PI / 2;
+            road.position.set(0, -0.55, -10);
+            scene.add(road);
+
+            // Dashed lane
+            const dashGroup = new THREE.Group();
+            const dashMat = new THREE.MeshBasicMaterial({ color: 0xffd166 });
+            const dashCount = 20;
+            const dashes = [];
+            for (let i = 0; i < dashCount; i++) {
+                const d = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.02, 1.1), dashMat);
+                d.position.set(0, -0.54, -i * 3 + 6);
+                dashGroup.add(d);
+                dashes.push(d);
+            }
+            scene.add(dashGroup);
+
+            // ─── SWIFT DZIRE CAR MODEL ───
+            const car = new THREE.Group();
+            const bodyColor = 0xf0f0f0; // pearl white
+            const darkGlass = 0x1a2a3a;
+            const chrome = 0xcccccc;
+            const black = 0x222222;
+
+            // ---- Main body (lower, wider, sedan shape) ----
+            const bodyMat = new THREE.MeshStandardMaterial({ color: bodyColor, metalness: 0.3, roughness: 0.4 });
+            const body = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.48, 1.2), bodyMat);
+            body.position.y = 0.24;
+            car.add(body);
+
+            // ---- Bonnet contour (slight bulge) ----
+            const bonnetMat = new THREE.MeshStandardMaterial({ color: bodyColor, metalness: 0.25, roughness: 0.4 });
+            const bonnet = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.06, 1.0), bonnetMat);
+            bonnet.position.set(0.75, 0.5, 0);
+            car.add(bonnet);
+
+            // ---- Trunk / boot ----
+            const trunk = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.16, 0.8), bodyMat);
+            trunk.position.set(-0.85, 0.38, 0);
+            car.add(trunk);
+
+            // ---- Cabin (sedan roofline - slightly sloped) ----
+            const cabinMat = new THREE.MeshStandardMaterial({
+                color: darkGlass,
+                metalness: 0.1,
+                roughness: 0.2,
+                transparent: true,
+                opacity: 0.65
+            });
+            const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.48, 1.05), cabinMat);
+            cabin.position.set(-0.05, 0.7, 0);
+            car.add(cabin);
+
+            // ---- Cabin top (slight curve) ----
+            const roofMat = new THREE.MeshStandardMaterial({ color: 0x2a3a4a, metalness: 0.1, roughness: 0.3 });
+            const roof = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.04, 0.95), roofMat);
+            roof.position.set(-0.05, 0.93, 0);
+            car.add(roof);
+
+            // ---- Front windshield (slanted) ----
+            const glassMat = new THREE.MeshStandardMaterial({
+                color: 0x4a7a9a,
+                metalness: 0.05,
+                roughness: 0.1,
+                transparent: true,
+                opacity: 0.4
+            });
+            const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.35, 0.02), glassMat);
+            windshield.position.set(0.7, 0.72, 0);
+            windshield.rotation.x = -0.35;
+            car.add(windshield);
+
+            // ---- Rear window ----
+            const rearGlass = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.32, 0.02), glassMat);
+            rearGlass.position.set(-0.7, 0.72, 0);
+            rearGlass.rotation.x = 0.35;
+            car.add(rearGlass);
+
+            // ---- Side windows ----
+            const sideGlassMat = new THREE.MeshStandardMaterial({
+                color: 0x3a6a8a,
+                metalness: 0.05,
+                roughness: 0.1,
+                transparent: true,
+                opacity: 0.35
+            });
+            const sw1 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.3, 0.02), sideGlassMat);
+            sw1.position.set(0.15, 0.75, 0.6);
+            car.add(sw1);
+            const sw2 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.3, 0.02), sideGlassMat);
+            sw2.position.set(0.15, 0.75, -0.6);
+            car.add(sw2);
+
+            // ---- Front grille (Suzuki style) ----
+            const grilleMat = new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.6, roughness: 0.3 });
+            const grille = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.18, 0.04), grilleMat);
+            grille.position.set(1.12, 0.28, 0);
+            car.add(grille);
+
+            // ---- Chrome grille accent ----
+            const chromeMat = new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.8, roughness: 0.2 });
+            const chromeAccent = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.06, 0.02), chromeMat);
+            chromeAccent.position.set(1.14, 0.36, 0);
+            car.add(chromeAccent);
+
+            // ---- Headlights (sleek) ----
+            const hlMat = new THREE.MeshStandardMaterial({
+                color: 0xffffee,
+                emissive: 0xffffaa,
+                emissiveIntensity: 0.15
+            });
+            const hlGeo = new THREE.BoxGeometry(0.08, 0.14, 0.3);
+            const hl1 = new THREE.Mesh(hlGeo, hlMat);
+            hl1.position.set(1.12, 0.3, 0.28);
+            car.add(hl1);
+            const hl2 = new THREE.Mesh(hlGeo, hlMat);
+            hl2.position.set(1.12, 0.3, -0.28);
+            car.add(hl2);
+
+            // ---- Headlight glow (point light) ----
+            const glow = new THREE.PointLight(0xffdd88, 0.6, 5);
+            glow.position.set(1.5, 0.3, 0);
+            car.add(glow);
+
+            // ---- Taillights ----
+            const tlMat = new THREE.MeshStandardMaterial({
+                color: 0xff2222,
+                emissive: 0xff0000,
+                emissiveIntensity: 0.08
+            });
+            const tlGeo = new THREE.BoxGeometry(0.06, 0.12, 0.22);
+            const tl1 = new THREE.Mesh(tlGeo, tlMat);
+            tl1.position.set(-1.12, 0.3, 0.28);
+            car.add(tl1);
+            const tl2 = new THREE.Mesh(tlGeo, tlMat);
+            tl2.position.set(-1.12, 0.3, -0.28);
+            car.add(tl2);
+
+            // ---- Wheels with rims ----
+            const wheelMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.8 });
+            const rimMat = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.7, roughness: 0.3 });
+            const wheelGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.18, 16);
+            const rimGeo = new THREE.CylinderGeometry(0.16, 0.16, 0.19, 8);
+
+            const wheelPositions = [
+                [0.65, -0.06, 0.56],
+                [0.65, -0.06, -0.56],
+                [-0.65, -0.06, 0.56],
+                [-0.65, -0.06, -0.56]
+            ];
+            wheelPositions.forEach(pos => {
+                const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+                wheel.rotation.z = Math.PI / 2;
+                wheel.position.set(...pos);
+                car.add(wheel);
+
+                const rim = new THREE.Mesh(rimGeo, rimMat);
+                rim.rotation.z = Math.PI / 2;
+                rim.position.set(...pos);
+                car.add(rim);
+
+                // Small hub cap center
+                const hubMat = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, metalness: 0.5 });
+                const hub = new THREE.Mesh(new THREE.CircleGeometry(0.05, 8), hubMat);
+                hub.position.set(pos[0], pos[1], pos[2] + (pos[2] > 0 ? 0.10 : -0.10));
+                hub.rotation.y = pos[2] > 0 ? 0 : Math.PI;
+                car.add(hub);
+            });
+
+            // ---- Side mirror ----
+            const mirrorMat = new THREE.MeshStandardMaterial({ color: 0xeeeeee, metalness: 0.2 });
+            const mirrorBaseMat = new THREE.MeshStandardMaterial({ color: 0x333333 });
+            [
+                [0.25, 0.58, 0.62],
+                [0.25, 0.58, -0.62]
+            ].forEach(pos => {
+                const base = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.04, 0.04), mirrorBaseMat);
+                base.position.set(...pos);
+                car.add(base);
+                const mirror = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 0.02), mirrorMat);
+                mirror.position.set(pos[0] + 0.02, pos[1] - 0.01, pos[2]);
+                car.add(mirror);
+            });
+
+            // ---- Door lines (visual detail with thin boxes) ----
+            const lineMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.2, roughness: 0.3 });
+            const line1 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.3, 0.02), lineMat);
+            line1.position.set(-0.2, 0.24, 0.62);
+            car.add(line1);
+            const line2 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.3, 0.02), lineMat);
+            line2.position.set(-0.2, 0.24, -0.62);
+            car.add(line2);
+
+            // ---- Position the car ----
+            car.position.set(0, 0.15, 2.5);
+            scene.add(car);
+
+            // ---- Particles (ambient dust) ----
+            const pCount = 260;
+            const pos = new Float32Array(pCount * 3);
+            for (let i = 0; i < pCount; i++) {
+                pos[i * 3] = (Math.random() - 0.5) * 26;
+                pos[i * 3 + 1] = Math.random() * 10;
+                pos[i * 3 + 2] = (Math.random() - 0.5) * 40;
+            }
+            const pGeo = new THREE.BufferGeometry();
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            const particles = new THREE.Points(
+                pGeo,
+                new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.5 })
+            );
+            scene.add(particles);
+
+            // ---- Mouse parallax ----
+            let targetX = 0,
+                targetY = 0;
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 1.4;
+                targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 0.8;
+            });
+
+            const clock = new THREE.Clock();
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+
+                // Gentle bounce and slight rotation
+                car.position.y = 0.15 + Math.sin(t * 2.8) * 0.02;
+                car.rotation.z = Math.sin(t * 2.8) * 0.008;
+
+                // Wheels rotation
+                car.children.forEach(child => {
+                    if (child.isMesh && child.geometry.type === 'CylinderGeometry' && child.material.color
+                        .getHex() === 0x1a1a2e) {
+                        child.rotation.x += 0.04;
+                    }
+                });
+
+                // Move dashed lines
+                dashes.forEach(d => {
+                    d.position.z += 0.12;
+                    if (d.position.z > 8) d.position.z -= dashCount * 3;
+                });
+
+                particles.rotation.y += 0.0006;
+
+                // Camera follow mouse
+                camera.position.x += (targetX * 1.8 - camera.position.x) * 0.03;
+                camera.position.y += (2.8 - targetY * 1.2 - camera.position.y) * 0.03;
+                camera.lookAt(0, 0.5, 0);
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                w = hero.clientWidth;
+                h = hero.clientHeight;
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+            });
+        }
+
+        // ──────────────────────────────────────────────
+        // 4. BOOKING FUNCTIONS
+        // ──────────────────────────────────────────────
+        window.bookCab = function() {
+            const pickup = document.getElementById('pickupInput').value.trim();
+            const dest = document.getElementById('destInput').value.trim();
+            const cabType = document.getElementById('cabTypeSelect').value || 'cab';
+            const dateTime = document.getElementById('dateTimeInput').value;
+
+            if (!pickup || !dest) {
+                alert('Please enter pickup and destination locations.');
+                return;
+            }
+
+            let msg = 'Booking ' + cabType + ' from ' + pickup + ' to ' + dest;
+            if (dateTime) msg += ' on ' + dateTime;
+            msg += '. Our team will call you within 10 minutes to confirm.';
+
+            alert(msg);
+
+            document.getElementById('pickupInput').value = '';
+            document.getElementById('destInput').value = '';
+            document.getElementById('cabTypeSelect').value = '';
+            document.getElementById('dateTimeInput').value = '';
+        };
+
+        window.bookSpecificCab = function(name, rate) {
+            alert('Booking ' + name + ' at ₹' + rate +
+                '/km… Please fill the booking form above or call us at +91 7673810238.');
+        };
+
+        window.bookDestination = function(dest, price) {
+            alert('Booking trip to ' + dest + ' starting from ₹' + price +
+                '… Our representative will contact you for details.');
+        };
+
+        // Call Now
+        document.querySelector('a[href^="tel:"]')?.addEventListener('click', function(e) {
+            alert('Calling +91 7673810238…');
+        });
+
+        // Image fallback
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                const fb = this.parentElement?.querySelector('.icon-fallback');
+                if (fb) fb.style.display = 'block';
+            });
+        });
+
+    })();
+</script>
+
+</body>
+</html>

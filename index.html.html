@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parth Tours & Travels - Premium Cab Services</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2472;
+            --secondary: #0E6BA8;
+            --accent: #FF6B6B;
+            --gold: #FFD166;
+            --light: #F8F9FA;
+            --dark: #1A1A2E;
+            --gradient: linear-gradient(135deg, #0A2472 0%, #0E6BA8 100%);
+            --gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FFD166 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        ::webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 5px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(10, 36, 114, 0.1);
+            z-index: 9999 !important;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            margin: 0 0.5rem;
+            color: var(--dark) !important;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(10, 36, 114, 0.8), rgba(14, 107, 168, 0.8)), 
+                        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-top: 80px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Search Box */
+        .search-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            margin-top: 50px;
+        }
+
+        .search-input {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: white;
+            height: 56px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .search-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0 2rem;
+            font-weight: 600;
+            height: 56px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(10, 36, 114, 0.2);
+        }
+
+        /* Cab Cards */
+        .cab-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .cab-image {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            background: linear-gradient(45deg, #0A2472, #0E6BA8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cab-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cab-image .icon-fallback {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+
+        .cab-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .cab-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        /* Cab Features */
+        .cab-feature {
+            display: inline-block;
+            background: rgba(10, 36, 114, 0.1);
+            color: var(--primary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 3px;
+        }
+
+        /* Driver Cards */
+        .driver-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .driver-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .driver-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 5px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Service Cards */
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* Stats Section */
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FFD166, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0 40px;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(10, 36, 114, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(10, 36, 114, 0.4);
+            color: white;
+        }
+
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            text-decoration: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 70px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content {
+                padding-top: 40px;
+            }
+            
+            .search-box {
+                padding: 1.5rem;
+                margin-top: 30px;
+            }
+            
+            .cab-image {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .search-button {
+                margin-top: 10px;
+            }
+        }
+
+        /* Card Equal Height */
+        .row.equal-height {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .row.equal-height > [class*='col-'] {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Rate Display */
+        .rate-display {
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+        }
+
+        /* Destination Cards */
+        .destination-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .destination-image {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* Price Tag */
+        .price-tag {
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand logo" href="#">
+                <i class="fas fa-car me-2"></i>Parth Tours & Travels
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cabs">Our Cabs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#destinations">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#drivers">Our Drivers</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#booking">Book Now</a>
+                    </li> -->
+                    <li class="nav-item ms-2">
+                        <a class="btn cta-button" href="tel:+917561999167 / 7673810238">
+                            <i class="fas fa-phone me-2"></i> Call Now
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container h-100 d-flex align-items-center">
+            <div class="row justify-content-center text-white hero-content">
+                <div class="col-lg-10 text-center" data-aos="fade-up">
+                    <h6 class="text-uppercase mb-3 animate__animated animate__fadeInDown" style="color: var(--gold); letter-spacing: 3px;">
+                        <i class="fas fa-shield-alt me-2"></i>Professional Cab Services
+                    </h6>
+                    <h1 class="hero-title animate__animated animate__fadeInUp">
+                        Premium Desire & Ertiga<br>
+                        <span style="color: var(--gold);">Cab Services</span>
+                    </h1>
+                    <p class="lead mt-4 mb-5 animate__animated animate__fadeInUp animate__delay-1s">
+                        Since 2025, providing safe and comfortable cab services with professional drivers. 
+                        Special rates: <span class="rate-display">Ertiga ₹22/km</span> & <span class="rate-display">Desire ₹18/km</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cab Booking Form -->
+        <div class="container" data-aos="fade-up" data-aos-delay="300">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="search-box">
+                        <h4 class="text-center mb-4" style="color: var(--primary);">
+                            <i class="fas fa-car me-2"></i>Instant Cab Booking
+                        </h4>
+                        <div class="row g-3 align-items-end">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label text-muted mb-2">Pickup Location</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-0">
+                                            <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i>
+                                        </span>
+                                        <input type="text" class="form-control search-input" placeholder="Enter pickup location">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label text-muted mb-2">Destination</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-0">
+                                            <i class="fas fa-flag" style="color: var(--accent);"></i>
+                                        </span>
+                                        <input type="text" class="form-control search-input" placeholder="Enter destination">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label text-muted mb-2">Cab Type</label>
+                                    <select class="form-control search-input">
+                                        <option value="">Select Cab</option>
+                                        <option value="ertiga">Ertiga (₹22/km)</option>
+                                        <option value="desire">Desire (₹18/km)</option>
+                                        <!-- <option value="hatchback">Hatchback (₹15/km)</option>
+                                        <option value="sedan">Sedan (₹18/km)</option>
+                                        <option value="innova">Innova (₹25/km)</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label text-muted mb-2">Pickup Date & Time</label>
+                                    <input type="datetime-local" class="form-control search-input">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-12">
+                                <button class="search-button" onclick="bookCab()">
+                                    <i class="fas fa-car me-2"></i> Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-6" data-aos="fade-up">
+                    <div class="stat-card">
+                        <div class="counter" data-count="150">0</div>
+                        <p class="mt-2 text-muted">Cabs in Fleet</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card">
+                        <div class="counter" data-count="30">0</div>
+                        <p class="mt-2 text-muted">Destinations</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-card">
+                        <div class="counter" data-count="500">0</div>
+                        <p class="mt-2 text-muted">Happy Customers</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-card">
+                        <div class="counter" data-count="1.2">0</div>
+                        <p class="mt-2 text-muted">Years Experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Cab Fleet -->
+    <section id="cabs" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Our Fleet</h6>
+                <h2 class="display-5 fw-bold mb-3">Premium Cab Services</h2>
+                <p class="text-muted">Well-maintained, clean, and comfortable vehicles with professional drivers</p>
+            </div>
+
+            <div class="row equal-height g-4">
+                <!-- Ertiga -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="cab-card">
+                        <div class="cab-badge">MOST POPULAR</div>
+                        <div class="cab-image">
+                            <img src="ear.jpeg" 
+                                 alt="Maruti Ertiga" onerror="this.style.display='none'">
+                            <div class="icon-fallback">
+                                <i class="fas fa-van-shuttle"></i>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="fw-bold">Maruti Ertiga</h5>
+                                    <p class="text-muted mb-0">
+                                        <i class="fas fa-users me-1" style="color: var(--accent);"></i>
+                                        7 Seater | Family Comfort
+                                    </p>
+                                </div>
+                                <div class="text-end">
+                                    <h4 class="fw-bold" style="color: var(--primary);">₹22/km</h4>
+                                    <small class="text-muted">Special Rate</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="cab-feature"><i class="fas fa-snowflake me-1"></i>AC</span>
+                                <span class="cab-feature"><i class="fas fa-suitcase me-1"></i>7 Bags</span>
+                                <span class="cab-feature"><i class="fas fa-wifi me-1"></i>WiFi*</span>
+                                <span class="cab-feature"><i class="fas fa-star me-1"></i>Premium</span>
+                            </div>
+                            <p class="text-muted mb-4">Perfect for family trips, corporate travel, and group outings. Spacious and comfortable with ample legroom.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold" style="color: var(--primary);">
+                                        <i class="fas fa-gas-pump me-1"></i> 20-22 kmpl
+                                    </div>
+                                </div>
+                                <button class="btn cta-button btn-sm" onclick="bookSpecificCab('Ertiga', 22)">
+                                    Book Ertiga <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desire -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cab-card">
+                        <div class="cab-badge">BEST VALUE</div>
+                        <div class="cab-image">
+                            <img src="dz.jpeg" 
+                                 alt="Tata Desire" onerror="this.style.display='none'">
+                            <div class="icon-fallback">
+                                <i class="fas fa-car"></i>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="fw-bold">Maruti Desire</h5>
+                                    <p class="text-muted mb-0">
+                                        <i class="fas fa-users me-1" style="color: var(--accent);"></i>
+                                        5 Seater | Economy Plus
+                                    </p>
+                                </div>
+                                <div class="text-end">
+                                    <h4 class="fw-bold" style="color: var(--primary);">₹18/km</h4>
+                                    <small class="text-muted">Special Rate</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="cab-feature"><i class="fas fa-snowflake me-1"></i>AC</span>
+                                <span class="cab-feature"><i class="fas fa-suitcase me-1"></i>4 Bags</span>
+                                <span class="cab-feature"><i class="fas fa-wifi me-1"></i>WiFi</span>
+                                <span class="cab-feature"><i class="fas fa-bolt me-1"></i>Economy</span>
+                            </div>
+                            <p class="text-muted mb-4">Great fuel efficiency with comfortable seating. Perfect for business trips and small family outings.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold" style="color: var(--primary);">
+                                        <i class="fas fa-gas-pump me-1"></i> 22-24 kmpl
+                                    </div>
+                                </div>
+                                <button class="btn cta-button btn-sm" onclick="bookSpecificCab('Desire', 20)">
+                                    Book Desire <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Cabs -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cab-card">
+                        <div class="cab-image">
+                            <img src="https://www.rockonwheelstravels.in/admin/web-admin/upload/641ed8cd3bd92ertiga.jpeg" 
+                                 alt="Other Cabs" onerror="this.style.display='none'">
+                            <div class="icon-fallback">
+                                <i class="fas fa-car"></i>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="fw-bold">Other Cabs Available</h5>
+                                    <p class="text-muted mb-0">
+                                        <i class="fas fa-car me-1" style="color: var(--accent);"></i>
+                                        Complete Fleet
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Hatchback (4-seater)</span>
+                                    <span class="fw-bold">₹18/km</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Sedan (4-seater)</span>
+                                    <span class="fw-bold">₹18/km</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Innova (7-seater)</span>
+                                    <span class="fw-bold">₹25/km</span>
+                                
+                            </div>
+                            <button class="btn cta-button w-100" onclick="bookCab()">
+                                <i class="fas fa-car me-2"></i> View All Cabs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section id="destinations" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Popular Destinations</h6>
+                <h2 class="display-5 fw-bold mb-3">Top Routes We Serve</h2>
+                <p class="text-muted">We provide cab services to all major tourist and business destinations</p>
+            </div>
+
+            <div class="row equal-height g-4">
+                <!-- Manali -->
+                <div class="col-lg-3 col-md-6" data-aos="fade-up">
+                    <div class="destination-card">
+                        <div class="position-relative">
+                            <img src="https://www.tourmyindia.com/blog/wp-content/uploads/2021/04/Feature-Best-Places-to-Visit-in-Manali.jpg" 
+                                 class="destination-image" alt="Manali" onerror="this.src='https://via.placeholder.com/800x400/0A2472/FFFFFF?text=Manali'">
+                            <!-- <div class="price-tag">From ₹12,000</div> -->
+                        </div>
+                        <div class="p-4">
+                            <h5 class="fw-bold mb-3">🚗 Delhi to Manali</h5>
+                            <p class="text-muted mb-3">Scenic hill station with snow adventures</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Distance:</span>
+                                <span class="fw-bold">540 km</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="text-muted">Travel Time:</span>
+                                <span class="fw-bold">12-14 hours</span>
+                            </div>
+                            <button class="btn cta-button w-100 mt-3" onclick="bookDestination('Delhi to Manali', 12000)">
+                                Book This Trip
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agra -->
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="destination-card">
+                        <div class="position-relative">
+                            <img src="https://foodandtravel.com/imager/hours/219609/Ministry-of-Tourism-Govt-of-India-595161_Taj-Mahal-Uttar-Pradesh-Aerial_821631bb23140209ea99c8f810f75634.jpg" 
+                                 class="destination-image" alt="Agra" onerror="this.src='https://via.placeholder.com/800x400/0E6BA8/FFFFFF?text=Agra'">
+                            <!-- <div class="price-tag">From ₹4,500</div> -->
+                        </div>
+                        <div class="p-4">
+                            <h5 class="fw-bold mb-3">🕌 Delhi to Agra</h5>
+                            <p class="text-muted mb-3">Visit Taj Mahal, Agra Fort</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Distance:</span>
+                                <span class="fw-bold">240 km</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="text-muted">Travel Time:</span>
+                                <span class="fw-bold">4-5 hours</span>
+                            </div>
+                            <button class="btn cta-button w-100 mt-3" onclick="bookDestination('Delhi to Agra', 4500)">
+                                Book This Trip
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shimla -->
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="destination-card">
+                        <div class="position-relative">
+                            <img src="https://ak.picdn.net/shutterstock/videos/1092063223/thumb/1.jpg" 
+                                 class="destination-image" alt="Shimla" onerror="this.src='https://via.placeholder.com/800x400/FF6B6B/FFFFFF?text=Shimla'">
+                            <!-- <div class="price-tag">From ₹8,500</div> -->
+                        </div>
+                        <div class="p-4">
+                            <h5 class="fw-bold mb-3">🏔️ Delhi to Shimla</h5>
+                            <p class="text-muted mb-3">Queen of Hills, Toy Train</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Distance:</span>
+                                <span class="fw-bold">350 km</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="text-muted">Travel Time:</span>
+                                <span class="fw-bold">8-9 hours</span>
+                            </div>
+                            <button class="btn cta-button w-100 mt-3" onclick="bookDestination('Delhi to Shimla', 8500)">
+                                Book This Trip
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jaipur -->
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="destination-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 class="destination-image" alt="Jaipur" onerror="this.src='https://via.placeholder.com/800x400/FFD166/000000?text=Jaipur'">
+                            <!-- <div class="price-tag">From ₹5,000</div> -->
+                        </div>
+                        <div class="p-4">
+                            <h5 class="fw-bold mb-3">🛕 Delhi to Jaipur</h5>
+                            <p class="text-muted mb-3">Pink City, Amer Fort, Hawa Mahal</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Distance:</span>
+                                <span class="fw-bold">280 km</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="text-muted">Travel Time:</span>
+                                <span class="fw-bold">5-6 hours</span>
+                            </div>
+                            <button class="btn cta-button w-100 mt-3" onclick="bookDestination('Delhi to Jaipur', 5000)">
+                                Book This Trip
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Professional Drivers -->
+    <section id="drivers" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Our Team</h6>
+                <h2 class="display-5 fw-bold mb-3">Meet Our Professional Drivers</h2>
+                <p class="text-muted">Experienced, licensed, and trained drivers for your safe journey</p>
+            </div>
+
+            <div class="row equal-height g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="driver-card">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             class="driver-image" alt="Corporate Driver" 
+                             onerror="this.src='https://via.placeholder.com/400x400/0A2472/FFFFFF?text=Driver'">
+                        <h5 class="fw-bold mb-2">Rajesh Kumar</h5>
+                        <p class="text-muted mb-3">Senior Corporate Driver</p>
+                        <div class="mb-3">
+                            <span class="cab-feature"><i class="fas fa-award me-1"></i>15 Years Exp</span>
+                            <span class="cab-feature"><i class="fas fa-map me-1"></i>Expert Navigator</span>
+                        </div>
+                        <p class="text-muted">Specializes in corporate travel, airport transfers, and business meetings.</p>
+                        <div class="rating mt-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <span class="ms-2">5.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="driver-card">
+                        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             class="driver-image" alt="Hill Station Driver"
+                             onerror="this.src='https://via.placeholder.com/400x400/0E6BA8/FFFFFF?text=Driver'">
+                        <h5 class="fw-bold mb-2">Mohan Singh</h5>
+                        <p class="text-muted mb-3">Hill Station Specialist</p>
+                        <div class="mb-3">
+                            <span class="cab-feature"><i class="fas fa-mountain me-1"></i>Hill Expert</span>
+                            <span class="cab-feature"><i class="fas fa-shield-alt me-1"></i>Safe Driver</span>
+                        </div>
+                        <p class="text-muted">Expert in driving through hilly terrains of Manali, Shimla, and Mussoorie.</p>
+                        <div class="rating mt-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                            <span class="ms-2">4.8</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="driver-card">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             class="driver-image" alt="Luxury Driver"
+                             onerror="this.src='https://via.placeholder.com/400x400/FF6B6B/FFFFFF?text=Driver'">
+                        <h5 class="fw-bold mb-2">Vikram Sharma</h5>
+                        <p class="text-muted mb-3">Luxury Cab Driver</p>
+                        <div class="mb-3">
+                            <span class="cab-feature"><i class="fas fa-gem me-1"></i>Luxury Service</span>
+                            <span class="cab-feature"><i class="fas fa-headset me-1"></i>Multilingual</span>
+                        </div>
+                        <p class="text-muted">Specializes in luxury travel, wedding services, and VIP transfers.</p>
+                        <div class="rating mt-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <span class="ms-2">5.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-uppercase" style="color: var(--accent); letter-spacing: 2px;">Why Choose Us</h6>
+                <h2 class="display-5 fw-bold mb-3">The Parth Tours Advantage</h2>
+                <p class="text-muted">We go the extra mile to ensure your journey is safe, comfortable, and memorable</p>
+            </div>
+
+            <div class="row equal-height g-4">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Professional Drivers</h5>
+                        <p class="text-muted">Licensed, trained, and experienced drivers with excellent manners</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Well-Maintained Cabs</h5>
+                        <p class="text-muted">Regularly serviced Ertiga & Desire cabs with AC and cleanliness</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Competitive Rates</h5>
+                        <p class="text-muted">Ertiga ₹22/km & Desire ₹18/km with no hidden charges</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">24/7 Support</h5>
+                        <p class="text-muted">Round-the-clock customer support for bookings and emergencies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="logo mb-3">Parth Tours</h3>
+                    <p class="mb-4 text-white-50">Since 2025, providing reliable cab services with Ertiga & Desire cabs. Professional drivers, competitive rates.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-facebook-f fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-instagram fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-white">
+                            <i class="fab fa-youtube fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="mb-4">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#cabs" class="text-white-50 text-decoration-none">Our Cabs</a></li>
+                        <li class="mb-2"><a href="#destinations" class="text-white-50 text-decoration-none">Destinations</a></li>
+                        <li class="mb-2"><a href="#drivers" class="text-white-50 text-decoration-none">Our Drivers</a></li>
+                        <li><a href="#booking" class="text-white-50 text-decoration-none">Book Now</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-map-marker-alt me-2" style="color: var(--gold);"></i>
+                            <span class="text-white-50">123 Main Street, Delhi, India</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-phone me-2" style="color: var(--gold);"></i>
+                            <span class="text-white-50">+91 7673810238</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-phone me-2" style="color: var(--gold);"></i>
+                            <span class="text-white-50">+91 7561999167</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope me-2" style="color: var(--gold);"></i>
+                            <span class="text-white-50">bookings@parthtours.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 mb-4">
+                    <h5 class="mb-4">Cab Rates</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2">Ertiga (7-seater): ₹22/km</li>
+                        <li class="mb-2">Desire (5-seater): ₹18/km</li>
+                        <li class="mb-2">Hatchback: ₹18/km</li>
+                        <li class="mb-2">Sedan: ₹18/km</li>
+                        <li class="mb-2">Innova: ₹25/km</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="bg-white-50 my-5">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="text-white-50">&copy; 2025 Parth Tours & Travels. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="text-white-50">Your Journey, Our Responsibility | Ertiga ₹22/km | Desire ₹18/km</p>
+                    <p>Design By PrimewebHelix
+                        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/919876543210?text=Hi,%20I%20want%20to%20book%20a%20cab%20from%20Parth%20Tours" 
+       class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Counter animation
+        function animateCounter() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const increment = target / 200;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.innerText = Math.ceil(current);
+                        setTimeout(updateCounter, 10);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCounter();
+            });
+        }
+
+        // Trigger counter when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe stats section
+        const statsSection = document.querySelector('.py-5.bg-white');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarCollapse.classList.remove('show');
+                    }
+                    
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                    
+                    window.scrollTo({
+                        top: targetPosition - navbarHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 5px 20px rgba(10, 36, 114, 0.15)';
+                navbar.style.padding = '0.5rem 0';
+            } else {
+                navbar.style.boxShadow = '0 2px 20px rgba(10, 36, 114, 0.1)';
+                navbar.style.padding = '1rem 0';
+            }
+        });
+
+        // Booking Functions
+        function bookCab() {
+            const pickup = document.querySelectorAll('.search-input')[0].value;
+            const destination = document.querySelectorAll('.search-input')[1].value;
+            const cabType = document.querySelectorAll('.search-input')[2].value;
+            const dateTime = document.querySelectorAll('.search-input')[3].value;
+            
+            if (!pickup || !destination) {
+                alert('Please enter pickup and destination locations');
+                return;
+            }
+            
+            let message = `Booking ${cabType || 'cab'} from ${pickup} to ${destination}`;
+            if (dateTime) {
+                message += ` on ${dateTime}`;
+            }
+            message += `... Our team will call you within 10 minutes to confirm.`;
+            
+            alert(message);
+            
+            // Reset form
+            document.querySelectorAll('.search-input')[0].value = '';
+            document.querySelectorAll('.search-input')[1].value = '';
+            document.querySelectorAll('.search-input')[2].value = '';
+            document.querySelectorAll('.search-input')[3].value = '';
+        }
+
+        function bookSpecificCab(cabName, rate) {
+            alert(`Booking ${cabName} at ₹${rate}/km... Please enter your details in the booking form above or call us at +91 98765 43210.`);
+        }
+
+        function bookDestination(destination, price) {
+            alert(`Booking trip to ${destination} starting from ₹${price}... Our representative will contact you for details.`);
+        }
+
+        // Call Now button
+        document.querySelector('a[href^="tel:"]').addEventListener('click', function(e) {
+            alert('Calling +91 98765 43210...');
+        });
+
+        // Handle image errors
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                const fallback = this.parentElement.querySelector('.icon-fallback');
+                if (fallback) {
+                    fallback.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
