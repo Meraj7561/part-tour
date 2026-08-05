@@ -361,6 +361,16 @@
             color: #fff;
         }
 
+        .hero-rates {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        .hero-highlight {
+            display: inline-block;
+            color: var(--accent);
+        }
+
         /* ── Cab Cards ── */
         .cab-card {
             background: linear-gradient(145deg, var(--surface-2), #09111f);
@@ -752,6 +762,13 @@
             border-radius: 12px;
             padding: 0.9rem 1rem;
         }
+        .contact-form .form-select {
+            color: #000;
+        }
+        .contact-form .form-select option {
+            color: #000;
+            background: #fff;
+        }
         .contact-form .form-control::placeholder {
             color: #8d97aa;
         }
@@ -1041,8 +1058,8 @@
                             <i class="fas fa-shield-alt me-2"></i>Professional Cab Services
                         </h6>
                         <h1 class="hero-title">
-                            Premium Desire &amp; Ertiga<br />
-                            <span>Cab Services</span>
+                            <span class="hero-highlight">Your Journey, Our Responsibility</span><br />
+                            <span>Premium Cab Services</span>
                         </h1>
                         <p class="lead mt-4 mb-4">
                             Since 2025, safe &amp; comfortable rides with professional drivers.
@@ -1640,7 +1657,10 @@ Thank you for trusting <b>Parth Tour & Travels</b>. Your support inspires us to 
                                     </div>
                                     <div class="col-md-6">
                                         <select class="form-select" id="contactCab">
-                                            <option value="Ertiga">Ertiga</option>
+                                            <option value="Ertiga" selected>Ertiga</option>
+                                            <option value="Dzire">Dzire</option>
+                                            <option value="Innova">Innova</option>
+                                            <option value="Scorpio">Scorpio</option>
                                             <option value="Desire">Desire</option>
                                             <option value="Traveler">Traveler</option>
                                             <option value="Electric Car">Electric Car</option>
@@ -2364,6 +2384,53 @@ MAIN APPLICATION
         });
 
     })();
+</script>
+
+<script>
+// Ensure WhatsApp links open in the native app on mobile devices when possible
+(function(){
+    function isMobile(){
+        return /Android|iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent || navigator.vendor || window.opera);
+    }
+
+    const waSelectors = 'a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href^="whatsapp:"]';
+    document.querySelectorAll(waSelectors).forEach(a => {
+        a.addEventListener('click', function(e){
+            if (!isMobile()) return; // let desktop/web behave normally
+            try {
+                e.preventDefault();
+                const href = a.href;
+                const u = new URL(href);
+                let phone = '';
+                let text = '';
+
+                if (u.hostname.includes('wa.me')) {
+                    phone = u.pathname.replace(/^\//, '');
+                    text = u.searchParams.get('text') || '';
+                } else if (u.hostname.includes('api.whatsapp.com')) {
+                    phone = u.searchParams.get('phone') || '';
+                    text = u.searchParams.get('text') || '';
+                } else if (href.startsWith('whatsapp:')) {
+                    // Let OS handle explicit whatsapp: links
+                    window.location.href = href;
+                    return;
+                }
+
+                // prefer native scheme
+                let appHref = 'whatsapp://send?';
+                if (phone) appHref += 'phone=' + encodeURIComponent(phone);
+                if (text) appHref += (phone ? '&' : '') + 'text=' + encodeURIComponent(text);
+
+                // Attempt to open native app, fallback to web link after short delay
+                window.location.href = appHref;
+                setTimeout(() => { window.location.href = href; }, 1800);
+            } catch (err) {
+                // fallback to original href
+                try { window.location.href = a.href; } catch(e){}
+            }
+        }, false);
+    });
+})();
 </script>
 
 </body>
